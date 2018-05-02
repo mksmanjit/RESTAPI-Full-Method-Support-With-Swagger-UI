@@ -1,0 +1,144 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>practice.restapi</groupId>
+  <artifactId>MyRESTAPIPractice</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>MyRESTAPIPractice Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <jersey.version>2.25.1</jersey.version>
+    <json-patch.version>1.9</json-patch.version>
+    <jax-rs.version>2.1</jax-rs.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <servlet-api.version>4.0.1</servlet-api.version>
+    <junit.version>4.12</junit.version>
+    <mockito.version>1.10.19</mockito.version>
+    <powermock.version>1.7.4</powermock.version>
+    <swagger-jersey2-jaxrs.version>1.5.19</swagger-jersey2-jaxrs.version>
+    <maven.plugin.swagger.version>3.1.7</maven.plugin.swagger.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+     <dependency>
+      <groupId>org.glassfish.jersey.containers</groupId>
+      <artifactId>jersey-container-servlet</artifactId>
+      <version>${jersey.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jersey.media</groupId>
+      <artifactId>jersey-media-json-jackson</artifactId>
+      <version>${jersey.version}</version>
+    </dependency>
+	
+	
+	<dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>${jax-rs.version}</version>
+    </dependency>
+	
+	<dependency>
+      <groupId>com.github.fge</groupId>
+      <artifactId>json-patch</artifactId>
+      <version>${json-patch.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>${servlet-api.version}</version>
+    </dependency>
+    
+    <!-- dependencies for REST API testing using JerseyTest -->
+    <dependency>
+      <groupId>org.glassfish.jersey.test-framework</groupId>
+      <artifactId>jersey-test-framework-core</artifactId>
+      <version>${jersey.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jersey.containers</groupId>
+      <artifactId>jersey-container-grizzly2-servlet</artifactId>
+      <version>${jersey.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-module-junit4</artifactId>
+      <version>${powermock.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-api-mockito</artifactId>
+      <version>${powermock.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+      <version>${mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <!-- Swagger -->
+    <dependency>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-jersey2-jaxrs</artifactId>
+      <version>${swagger-jersey2-jaxrs.version}</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>MyRESTAPIPractice</finalName>
+      <plugins>
+    <!-- =============================================================== -->
+      <!-- Create a swagger.json file under swagger directory              -->
+      <!-- for given packages in locations tag.JSON file used in swagger UI-->
+      <!-- =============================================================== -->
+      <plugin>
+        <groupId>com.github.kongchen</groupId>
+        <artifactId>swagger-maven-plugin</artifactId>
+        <version>${maven.plugin.swagger.version}</version>
+        <configuration>
+         <apiSources>
+            <apiSource>
+              <springmvc>false</springmvc>
+              <locations>practice.restapi.restapidemo.v1</locations>
+              <schemes>https,http</schemes>
+              <basePath>/MyRESTAPIPractice/rest</basePath>
+              <info>
+                <title>My Testing API</title>
+                <version>1.0</version>
+              </info>
+              <outputFormats>json</outputFormats>
+              <swaggerDirectory>${project.build.directory}/apiddocs/v1.0</swaggerDirectory>
+            </apiSource>
+          </apiSources>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+   </plugins>
+  </build>
+
+</project>
